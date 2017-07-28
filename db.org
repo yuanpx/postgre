@@ -1,0 +1,28 @@
+* shell cmd
+ psql postgresl://myuser:mypasswd@myhost:port/mydb
+ psql -h myhost -p port -d mydb -u myuser
+ psql -c "select current_time"
+ psql -f file.sql
+
+* psql cmd
+ conninfo
+ \h
+ \x
+ ALTER USER postgres PASSWORD 'passwd';
+
+* sql
+ select current_database();
+ select current_user;
+ select inet_server_addr(), inet_server_port();
+ select version();
+
+* config
+**  postgresql.conf
+   listen_address = "*"
+** pg_hba.conf
+  type database user cidr-address method
+** ~/.pgpass
+   myhost:myport:mydb:myuser:mypasswd
+
+* ENV
+  PGPASSFILE
