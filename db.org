@@ -3,6 +3,10 @@
  psql -h myhost -p port -d mydb -u myuser
  psql -c "select current_time"
  psql -f file.sql
+ psql --version
+ pg_controldata dir | grep "system_identifier"
+ pgsql -l
+ createdb my_database
 
 * psql cmd
  conninfo
@@ -15,6 +19,13 @@
  select current_user;
  select inet_server_addr(), inet_server_port();
  select version();
+ select data_trunc('second', current_timestamp - pg_postmaster_start_time()) as uptime;
+ SELECT pg_postmaster_start_time();
+ select datname from pg_database;
+ create database my_database;
+ select count(*) from information_schema.tables where table_schema not in ('information_shema', 'pg_catalog');
+ select pg_database_size(current_database());
+ select sum(pg_database_size(datname)) from pg_database;
 
 * config
 **  postgresql.conf
@@ -23,6 +34,22 @@
   type database user cidr-address method
 ** ~/.pgpass
    myhost:myport:mydb:myuser:mypasswd
+** /etc/pg_service.conf  ~/.pg_service.conf
+   [dataservice]
+   host= 
+   port= 
+   dbname=
+
+   service =  user = 
+** /var/lib/postgresql/R.r/main    /var/lib/psql/data
+** /etc/postgresql/R.r/main
+** /var/log/postgresql
 
 * ENV
   PGPASSFILE
+  PGSERVICEFILE
+  PGSERVICE
+  PGROOT
+  PGRELEASE
+  PGSERVERNAME
+  PGDATA
